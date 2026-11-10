@@ -549,7 +549,22 @@ const savedTheme = localStorage.getItem("novaTheme");
 if (savedTheme === "light") {
   document.body.classList.add("light");
 }
+// Restore saved conversation
 
+try {
+  history = JSON.parse(
+    localStorage.getItem("novaHistory") || "[]"
+  );
+
+  history.forEach(item => {
+    addMessage(
+      item.text,
+      item.role === "user" ? "user" : "bot"
+    );
+  });
+} catch (error) {
+  history = [];
+}
 </script>
 
 </body>
